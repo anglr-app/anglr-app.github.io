@@ -32,9 +32,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Piazzolla:opsz,wght@8..30,500..700&display=swap" rel="stylesheet">
 <style>
+@property --bg{syntax:'<color>';inherits:true;initial-value:#0D1217}
+@property --tx{syntax:'<color>';inherits:true;initial-value:#E7ECF1}
+@property --mu{syntax:'<color>';inherits:true;initial-value:#9AA7B4}
+@property --act{syntax:'<color>';inherits:true;initial-value:#5FBEB1}
+@property --ac{syntax:'<color>';inherits:true;initial-value:#5FBEB1}
+@property --acs{syntax:'<color>';inherits:true;initial-value:#16302C}
+@property --hl{syntax:'<color>';inherits:true;initial-value:rgba(255,255,255,.08)}
 :root{--rw:244px;--gx:clamp(28px,4vw,80px);--pmax:min(340px,calc((100vh - 92px)/2.11));--pw:var(--pmax);--ph:calc(var(--pmax)*2.11 + 20px);--top:max(24px,calc(50vh - var(--ph)/2));--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;--disp:"Piazzolla",Georgia,serif}
 .dark{--bg:#0D1217;--sf:#161D25;--tx:#E7ECF1;--mu:#9AA7B4;--fa:#6C7986;--ac:#5FBEB1;--act:#5FBEB1;--acs:#16302C;--hl:rgba(255,255,255,.08);--fr:rgba(255,255,255,.14)}
-.light{--bg:#EEF1F5;--sf:#FFFFFF;--tx:#151B22;--mu:#5B6776;--fa:#93A0AE;--ac:#3D9B8F;--act:#2A7369;--acs:#E8F4F2;--hl:rgba(21,31,46,.09);--fr:rgba(21,31,46,.22)}
+.light{--bg:#F1F1EE;--sf:#FFFFFF;--tx:#151B22;--mu:#5B6776;--fa:#93A0AE;--ac:#3D9B8F;--act:#2A7369;--acs:#E8F4F2;--hl:rgba(21,31,46,.09);--fr:rgba(21,31,46,.22)}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:#0D1217;font-family:var(--sans);font-size:18px;line-height:1.6;overflow-x:hidden}
@@ -49,7 +56,8 @@ p{margin:0;text-wrap:pretty}
 .skip{position:fixed;left:16px;top:-80px;z-index:50;background:#5FBEB1;color:#0D1217;font-weight:600;padding:12px 18px;border-radius:12px;text-decoration:none;min-height:44px}
 .skip:focus{top:16px;color:#0D1217}
 /* rail */
-.rail{position:fixed;inset:0 auto 0 0;width:var(--rw);z-index:20;background:var(--bg);color:var(--tx);border-right:1px solid var(--hl);padding:40px 24px 28px 28px;display:flex;flex-direction:column;overflow-y:auto;transition:background-color .5s,color .5s}
+.rail{position:fixed;inset:0 auto 0 0;width:var(--rw);z-index:20;background:var(--bg);color:var(--tx);border-right:1px solid var(--hl);padding:40px 24px 28px 28px;display:flex;flex-direction:column;overflow-y:auto}
+.rail,.mbar{transition:--bg 1.1s cubic-bezier(.75,0,.25,1),--tx .55s steps(1,end),--mu .55s steps(1,end),--act .55s steps(1,end),--ac .55s steps(1,end),--acs .55s steps(1,end),--hl .55s steps(1,end)}
 .clock{min-height:104px}
 .cv{display:block;font:500 48px/1 var(--mono);letter-spacing:-.02em;color:var(--act);font-variant-numeric:tabular-nums}
 .cv.lbl{font:600 24px/1.15 var(--sans);letter-spacing:0;padding-top:10px}
@@ -120,6 +128,9 @@ html:not(.js) .tester,html:not(.js) .lang{display:none}
 @media (min-width:1000px) and (max-width:1339px){.stop .in{grid-template-columns:minmax(0,1fr)}.txt{position:static;max-width:40rem}.media,.media.one{justify-content:center}}
 .quiet .in{grid-template-columns:minmax(0,34rem);padding-top:clamp(140px,26vh,280px);padding-bottom:clamp(140px,26vh,280px)}
 .quiet .txt{position:static}
+.sky{height:clamp(320px,50vh,560px)}
+.sky.dawn{background:linear-gradient(to bottom,#0D1217 0%,#131D27 16%,#22303E 32%,#3E4D5C 46%,#6B7784 60%,#A3A9B0 74%,#C9C6C3 85%,#E5E6E4 93%,#F1F1EE 100%)}
+.sky.dusk{background:linear-gradient(to bottom,#F1F1EE 0%,#DDE0E1 10%,#B9C1CA 24%,#8794A1 40%,#55636F 55%,#2E3B48 70%,#18222C 85%,#0D1217 100%)}
 /* also + footer */
 .also .in{padding-top:clamp(96px,14vh,160px);padding-bottom:clamp(72px,10vh,120px)}
 .also h2{font-size:clamp(28px,2.6vw,38px)}
@@ -155,7 +166,8 @@ html:not(.js) .tester,html:not(.js) .lang{display:none}
 .hindex a{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;border-radius:9px;border:1px solid var(--hl);color:var(--tx);text-decoration:none;font:500 15px/1.3 var(--mono)}
 .hindex a.w{font-family:var(--sans)}
 .hindex a:hover{border-color:var(--ac)}
-.js .mbar{display:block;position:sticky;top:0;z-index:30;background:var(--bg);color:var(--tx);border-bottom:1px solid var(--hl);transition:background-color .5s,color .5s}
+.js .mbar{display:block;position:sticky;top:0;z-index:30;background:var(--bg);color:var(--tx);border-bottom:1px solid var(--hl)}
+.sky{height:clamp(160px,28vh,280px)}
 .mbtn{width:100%;min-height:56px;display:flex;align-items:center;gap:14px;padding:8px 20px;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
 .mbar .cv{font-size:20px;flex:none}
 .mbar .cv.lbl{font-size:15px;padding:0}
@@ -236,6 +248,7 @@ html{scroll-behavior:auto}
 <div class="txt"><p class="stime">07:00</p><h2 data-i18n="n1">Μέρα εξόρμησης</h2><p class="body" data-i18n="p1">Μια σύντομη υπενθύμιση στις <span class="num">07:00</span> το πρωί της εξόρμησης. Οι Ειδοποιήσεις Σεληνιακής Φάσης σε ενημερώνουν και για πανσέληνο και νέα σελήνη.</p></div>
 </div>
 </section>
+<div class="sky dawn" data-to="light" aria-hidden="true"></div>
 <section class="stop light" id="sway" data-g="light">
 <div class="in">
 <div class="txt"><p class="stime w" data-i18n="l2">Στον δρόμο</p><h2 data-i18n="n2">Ακολούθησε τη διαδρομή</h2><p class="body" data-i18n="p2">Κατέγραψε τη διαδρομή μέχρι ένα νέο σημείο. Η καταγραφή συνεχίζεται ακόμη και με σβηστή την οθόνη και λειτουργεί εντελώς εκτός σύνδεσης, χωρίς σήμα. Αποθήκευσε τη διαδρομή στο σημείο. Την επόμενη φορά ακολούθησέ την: βλέπεις πόσα μέτρα απομένουν και, αν βγεις από τη διαδρομή, το κινητό σε ειδοποιεί με δόνηση.</p></div>
@@ -266,6 +279,7 @@ html{scroll-behavior:auto}
 <div class="media one"><div class="col pin"><figure class="phone long"><div class="scr"><img src="img/06-session-details-long.jpg" width="1200" height="5805" loading="lazy" data-alt="a06" alt="Session Details: διάγραμμα της διαδρομής με τις ψαριές, ψάρεμα από 08:56 έως 10:55 με 3 ψάρια, τα σημεία της ημέρας με την ώρα τους, οι περιβαλλοντικές συνθήκες ανά ψαριά, τα στοιχεία του σημείου και οι σημειώσεις."></div></figure></div></div>
 </div>
 </section>
+<div class="sky dusk" data-to="dark" aria-hidden="true"></div>
 <section class="stop dark" id="shome" data-g="dark">
 <div class="in">
 <div class="txt"><p class="stime w" data-i18n="l6">Πίσω στο σπίτι</p><h2 data-i18n="n6">Τι λέει το ιστορικό σου</h2><p class="body" data-i18n="p6">Τα Στατιστικά &amp; οι Αναλύσεις μετατρέπουν τις δικές σου ψαριές σε απαντήσεις: τη μηνιαία τάση, τα κορυφαία είδη και τα καλύτερα σημεία, τις συνθήκες και την ώρα της ημέρας που αποδίδουν, τις εποχές, τα ρεκόρ και τα σερί σου. Όσο περισσότερες εξορμήσεις καταγράφεις, τόσο περισσότερα έχει να σου πει το ιστορικό σου.</p></div>
@@ -380,6 +394,8 @@ var stops=[['s1900',1140,'n0'],['s0700',1860,'n1'],['sway',null,'n2','l2'],['s08
 var rail=document.getElementById('rail'),mbar=document.getElementById('mbar'),clockEl=document.getElementById('clock');
 var cvs=[document.getElementById('cv'),document.getElementById('mcv')],cns=[document.getElementById('cn'),document.getElementById('mcn')];
 var active=-2,curM=1140,anim=null;
+var marks=Array.prototype.slice.call(document.querySelectorAll('main > section[data-g], main > .sky')),ground=null;
+function setGround(g){if(g===ground)return;ground=g;[rail,mbar].forEach(function(e){e.classList.toggle('light',g==='light');e.classList.toggle('dark',g!=='light')})}
 function fmt(m){m=((Math.round(m)%1440)+1440)%1440;var h=Math.floor(m/60),mm=m%60;return(h<10?'0':'')+h+':'+(mm<10?'0':'')+mm}
 function setCv(txt,isLbl){cvs.forEach(function(c){c.textContent=txt;c.classList.toggle('lbl',!!isLbl)})}
 function paintClock(instant){
@@ -395,8 +411,6 @@ if(anim)cancelAnimationFrame(anim);
 }
 function setActive(i){
 if(i===active)return;active=i;
-var g=i<0?'dark':stops[i].el.dataset.g;
-[rail,mbar].forEach(function(e){e.classList.toggle('light',g==='light');e.classList.toggle('dark',g!=='light')});
 [document.getElementById('railList'),mlist].forEach(function(ol){Array.prototype.forEach.call(ol.querySelectorAll('a'),function(a,k){a.classList.toggle('on',k===i);if(k===i)a.setAttribute('aria-current','step');else a.removeAttribute('aria-current')})});
 paintClock(false);
 }
@@ -408,6 +422,7 @@ function update(){
 ticking=false;var vh=window.innerHeight,line=vh*0.45,idx=-1;
 stops.forEach(function(s,k){if(s.el.getBoundingClientRect().top<=line)idx=k});
 setActive(idx);
+var g='dark';marks.forEach(function(m){var r=m.getBoundingClientRect(),sky=m.classList.contains('sky');if((sky?r.top+r.height/2:r.top)<=line)g=sky?m.dataset.to:m.dataset.g});setGround(g);
 if(RM.matches)return;
 longs.forEach(function(L){var r=L.col.getBoundingClientRect(),top=parseFloat(getComputedStyle(L.ph).top)||0,travel=r.height-L.ph.offsetHeight,p=travel>0?(top-r.top)/travel:0;p=Math.max(0,Math.min(1,p));L.tgt=-p*Math.max(0,L.img.offsetHeight-L.scr.clientHeight)});
 if(!lerping){lerping=true;requestAnimationFrame(lerp)}
